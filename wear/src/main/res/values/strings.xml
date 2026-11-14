@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TickAlarm</string>
+    <string name="test_alarm">Test in 1 min</string>
+    <string name="test_set">Test alarm set for 1 minute from now.</string>
+</resources>

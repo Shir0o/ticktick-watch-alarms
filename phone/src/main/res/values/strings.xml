@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TickAlarm</string>
+    <string name="connecting">Connecting to TickTick…</string>
+    <string name="fix_permissions">Grant missing permissions</string>
+    <string name="ring_here">Also ring on this phone</string>
+    <string name="test_alarm">Test alarm in 1 minute</string>
+    <string name="sync_now">Sync now</string>
+    <string name="upcoming_header">Upcoming alarms</string>
+    <string name="ticktick_header">TickTick connection</string>
+    <string name="ticktick_help">Create an app at developer.ticktick.com (Manage Apps), set its OAuth redirect URL to tickalarm://oauth, then paste its Client ID and Client Secret here.</string>
+    <string name="client_id">Client ID</string>
+    <string name="client_secret">Client Secret</string>
+    <string name="redirect_uri">Redirect URL (default tickalarm://oauth)</string>
+    <string name="connect">Save and connect TickTick</string>
+    <string name="pasted_url">If the browser didn\'t come back here, paste the address it ended on</string>
+    <string name="finish_paste">Finish sign-in with pasted address</string>
+</resources>

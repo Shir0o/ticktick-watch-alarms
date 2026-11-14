@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tickalarm_channel_name">Reminder alarms</string>
+    <string name="tickalarm_channel_description">Rings and vibrates until you dismiss it.</string>
+    <string name="tickalarm_dismiss">Dismiss</string>
+    <string name="tickalarm_snooze">Snooze 10 min</string>
+</resources>
