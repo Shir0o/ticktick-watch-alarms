@@ -1,0 +1,49 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      # Optional: a fixed signing key lets you update the apps without reinstalling.
+      # Without it, both APKs from one run are signed with the same throwaway debug key.
+      - name: Use shared signing key if configured
+        env:
+          KEYSTORE_B64: ${{ secrets.TICKALARM_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/tickalarm.jks"
+            echo "TICKALARM_KEYSTORE=$RUNNER_TEMP/tickalarm.jks" >> "$GITHUB_ENV"
+          fi
+
+      - name: Test and build
+        env:
+          TICKALARM_KEYSTORE_PASSWORD: ${{ secrets.TICKALARM_KEYSTORE_PASSWORD }}
+          TICKALARM_KEY_ALIAS: ${{ secrets.TICKALARM_KEY_ALIAS }}
+          TICKALARM_KEY_PASSWORD: ${{ secrets.TICKALARM_KEY_PASSWORD }}
+        run: ./gradlew --no-daemon :shared:test :phone:assembleDebug :wear:assembleDebug
+
+      - name: Collect APKs
+        run: |
+          mkdir -p dist
+          cp phone/build/outputs/apk/debug/phone-debug.apk dist/tickalarm-phone.apk
+          cp wear/build/outputs/apk/debug/wear-debug.apk dist/tickalarm-watch.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tickalarm-apks
+          path: dist/*.apk
